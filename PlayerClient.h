@@ -1,5 +1,10 @@
-//Declaration of the client, PlayerClient for the server.
-
+//
+//
+//  PlayerClient.h
+//  Declaration of the client, PlayerClient for the server.
+//
+//  Created by Fabiola Castellanos Fuentes on 2021-03-15.
+//
 #pragma once
 
 #include <string>
