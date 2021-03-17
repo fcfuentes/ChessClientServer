@@ -1,12 +1,31 @@
 //
-// chat_server.cpp
+// Server.cpp
 // ~~~~~~~~~~~~~~~
+// Modified variables names and added some specific code for the chess server site to a 
+// chat_sever example from the boost library. 
 //
-// Copyright (c) 2003-2020 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Server can handle the following commands from the client:
+// 
+//  When a client start a session, the client should enter,
 //
-// Distributed under the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+//  name PlayersName
+//  country countryOrigen
+//  elo eloRank
+//  list players 
+//  pair me
+//  logout me 
 //
+//  A player can request a list of the current players and it will received a list of the current player in descending order by elo rank.
+//  It also can logout and it will be removed from the list of participants. Player can request to be paired and if there is another player
+//  within 100 points in Elo Rank. Both player will receive the profile of the opponent.
+//  60 s waiting for a match if a match is not found with the current players was not implemented.
+//
+////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2003-2020 Christopher M. Kohlhoff (chris at kohlhoff dot com).   //
+//                                                                                //
+// Distributed under the Boost Software License, Version 1.0. (See accompanying.  //
+// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt).         //
+////////////////////////////////////////////////////////////////////////////////////
 
 #include <cstdlib>
 #include <deque>
@@ -94,7 +113,9 @@ private:
 					parameter = SplitVec.at(1);
 					parameter = parameter.substr(0, parameter.length() - 2);
 				}
-
+                                //Added functionality to received a request from the client and send information requested to the 
+				//player. 60 s waiting for a match if a match is not found with the current players was not implemented.
+				
 				cout << "Command received is " << command << ", with parameter: " << parameter << "\n";
 
 				if (command == "name") {
