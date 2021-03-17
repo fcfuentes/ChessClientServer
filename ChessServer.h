@@ -1,4 +1,12 @@
+//
+//  ChessServer
+//  Definitions of the functions that clients can request to the server.
+//
+//  Created by Fabiola Castellanos Fuentes on 2021-03-15.
+//
+
 #pragma once
+
 #include <string>
 #include <memory>
 #include <vector>
@@ -11,14 +19,21 @@ class ChessServer
 {
 public:
 	void logIn(playerClientPtr player);
+	
 	void logOut(playerClientPtr player);
+	
 	std::string displayPlayers();
+	
 	playerClientPtr pairChessPlayer(playerClientPtr player);
+	
 	void NotifyPlayers(playerClientPtr player1, playerClientPtr player2);
+	
 	void Notify(const std::string& msg);
 private:
 	std::vector<playerClientPtr> playersList;
+	
 	enum { max_recent_msgs = 100 };
+	
 	std::deque<std::string> message;
 
 	bool static compareTwoPlayers(playerClientPtr player1, playerClientPtr player2);
