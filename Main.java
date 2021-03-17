@@ -1,3 +1,10 @@
+//
+//  Main class
+//  It connects to localhost in port 1234 and start a listener thread and waits for user input.
+//
+//  Created by Fabiola Castellanos Fuentes on 2021-03-15.
+//
+
 import java.util.Scanner;
 
 public class Main {
@@ -5,7 +12,6 @@ public class Main {
         var client = new EchoClient();
         client.startConnection("127.0.0.1", 1234);
 
-        // Using Scanner for Getting Input from User
         var in = new Scanner(System.in);
 
         var t = new ListenerThread(client);
