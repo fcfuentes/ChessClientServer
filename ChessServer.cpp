@@ -1,7 +1,7 @@
 
 //
 //  ChessServer.cpp
-//  Chess_Game
+//  Definitions of the class. 
 //
 //  Created by Fabiola Castellanos Fuentes on 2021-03-15.
 //
