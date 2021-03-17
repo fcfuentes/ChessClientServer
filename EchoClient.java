@@ -1,3 +1,10 @@
+//
+//  EchoClient.java
+//  Definition of the Client. Starts a connection, send and receive messages and stop a connection.
+//
+//  Created by Fabiola Castellanos Fuentes on 2021-03-15.
+//
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +16,7 @@ public class EchoClient {
     private PrintWriter out;
     private BufferedReader in;
 
+    //Start the conecction. Open a new socket and listen
     public void startConnection(String ip, int port) {
         try {
             clientSocket = new Socket(ip, port);
@@ -26,7 +34,7 @@ public class EchoClient {
             return null;
         }
     }
-
+ 
     public void sendMessage(String msg) {
         try {
             out.println(msg);
