@@ -1,7 +1,7 @@
 
 //
 //  ChessServer.cpp
-//  Definitions of the class. 
+//  Definitions the functions that clients can request to the server.
 //
 //  Created by Fabiola Castellanos Fuentes on 2021-03-15.
 //
@@ -17,6 +17,7 @@
 
 using namespace std;
 
+//LogIn operation
 void ChessServer::logIn(playerClientPtr player)
 {
 	playersList.push_back(player);
@@ -24,6 +25,7 @@ void ChessServer::logIn(playerClientPtr player)
 		player->Notify(msg);
 }
 
+//Logout operation
 void ChessServer::logOut(playerClientPtr player)
 {
 	if (getIndex(player) >= 0) {
@@ -31,6 +33,7 @@ void ChessServer::logOut(playerClientPtr player)
 	}
 
 }
+//Send a notification to players
 void ChessServer::Notify(const std::string& msg)
 {
 	message.push_back(msg);
@@ -41,10 +44,12 @@ void ChessServer::Notify(const std::string& msg)
 		player->Notify(msg);
 }
 
+//Sort current players decrecing order by Elo rank
 void ChessServer::sortPlayers() {
 	std::sort(playersList.begin(), playersList.end(), compareTwoPlayers);
 }
 
+//List current players on the server operation
 std::string ChessServer::displayPlayers() {
 	sortPlayers();
 	std::string listP = "";
@@ -56,6 +61,7 @@ std::string ChessServer::displayPlayers() {
 	return listP;
 }
 
+//Request to pair operation. Returns the opponent player if pair exists or null if it doesnt.
 playerClientPtr ChessServer::pairChessPlayer(playerClientPtr player) {
 	sortPlayers();
 	bool isFound = false;
@@ -77,7 +83,6 @@ playerClientPtr ChessServer::pairChessPlayer(playerClientPtr player) {
 			isFound = true;
 	}
 
-
 	if (isFound) {
 		return pl1;
 	}
@@ -87,6 +92,7 @@ playerClientPtr ChessServer::pairChessPlayer(playerClientPtr player) {
 	}
 }
 
+//Returns true if two players have a similar Elo Rank within 100, false otherwise.
 bool ChessServer::isAMatch(playerClientPtr player1, playerClientPtr player2) {
 	bool match = false;
 	if (abs(player1->getEloRating() - player2->getEloRating()) <= 100)
@@ -94,7 +100,7 @@ bool ChessServer::isAMatch(playerClientPtr player1, playerClientPtr player2) {
 	return match;
 }
 
-// Compare two player to sort in descending order
+// Compare two players by Elo Rank
 bool ChessServer::compareTwoPlayers(playerClientPtr player1, playerClientPtr player2) {
 	bool isGreater = false;
 	if (player1->getEloRating() > player2->getEloRating())
@@ -118,6 +124,7 @@ int ChessServer::getIndex(playerClientPtr pl) {
 	return -1;
 }
 
+//Notify two players with the profile of the opponent if there is a match, returns No match found otherwise.
 void ChessServer::NotifyPlayers(playerClientPtr player1, playerClientPtr player2) {
 
 	if (player2 != NULL) {
